@@ -81,7 +81,7 @@ section{padding:100px 24px}
 @media(max-width:768px){.problem-grid{grid-template-columns:1fr}}
 .problem-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:32px 28px;transition:all .2s;box-shadow:0 2px 12px rgba(13,43,82,0.04)}
 .problem-card:hover{border-color:rgba(13,43,82,0.25);box-shadow:0 8px 28px rgba(13,43,82,0.1);transform:translateY(-2px)}
-.problem-icon{font-size:2rem;margin-bottom:16px}
+.problem-icon{margin-bottom:16px;display:flex;align-items:center}
 .problem-title{font-family:'Libre Baskerville',serif;font-size:1.2rem;font-weight:400;color:var(--navy);margin-bottom:10px}
 .problem-text{font-size:.88rem;color:var(--muted);line-height:1.7;font-weight:300}
 
@@ -191,17 +191,17 @@ footer{padding:48px 24px;background:var(--bg2);border-top:1px solid var(--border
     </div>
     <div class="problem-grid">
       <div class="problem-card fade-up">
-        <div class="problem-icon">📞</div>
+        <div class="problem-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 3.07 9.61a19.79 19.79 0 0 1-3.07-8.66A2 2 0 0 1 2 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L6.91 8.91a16 16 0 0 0 6.18 6.18l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
         <div class="problem-title" data-key="prob1Title">Missed calls after hours</div>
         <div class="problem-text" data-key="prob1Text">Patients call outside business hours and book with your competitor instead. Every unanswered call is a lost appointment.</div>
       </div>
       <div class="problem-card fade-up">
-        <div class="problem-icon">⏳</div>
+        <div class="problem-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
         <div class="problem-title" data-key="prob2Title">Staff overwhelmed by repetition</div>
         <div class="problem-text" data-key="prob2Text">Hours spent answering the same questions — prices, availability, procedures. Time your team could spend on patients in front of them.</div>
       </div>
       <div class="problem-card fade-up">
-        <div class="problem-icon">📉</div>
+        <div class="problem-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg></div>
         <div class="problem-title" data-key="prob3Title">Slow responses lose patients</div>
         <div class="problem-text" data-key="prob3Text">Today's patients expect instant answers. If you don't respond in minutes, they move on. Speed is now a competitive advantage.</div>
       </div>
@@ -247,32 +247,32 @@ footer{padding:48px 24px;background:var(--bg2);border-top:1px solid var(--border
     </div>
     <div class="features-grid">
       <div class="feat-card fade-up">
-        <div class="feat-icon">🕐</div>
+        <div class="feat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
         <div class="feat-title" data-key="feat1Title">24/7 Availability</div>
         <div class="feat-text" data-key="feat1Text">Never miss an inquiry. Your AI receptionist answers at 3am on a Sunday, just as well as Monday morning.</div>
       </div>
       <div class="feat-card fade-up">
-        <div class="feat-icon">📅</div>
+        <div class="feat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
         <div class="feat-title" data-key="feat2Title">Appointment Scheduling</div>
         <div class="feat-text" data-key="feat2Text">Patients book directly through the chat. Available slots sync with your real schedule, no double bookings.</div>
       </div>
       <div class="feat-card fade-up">
-        <div class="feat-icon">💬</div>
+        <div class="feat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
         <div class="feat-title" data-key="feat3Title">Instant FAQ Answers</div>
         <div class="feat-text" data-key="feat3Text">Prices, procedures, insurance, parking — the AI answers every common question instantly, with your voice and information.</div>
       </div>
       <div class="feat-card fade-up">
-        <div class="feat-icon">🌐</div>
+        <div class="feat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
         <div class="feat-title" data-key="feat4Title">Multi-language Support</div>
         <div class="feat-text" data-key="feat4Text">Serve patients in their native language. The AI detects and responds fluently in English, Portuguese, Spanish, and more.</div>
       </div>
       <div class="feat-card fade-up">
-        <div class="feat-icon">📊</div>
+        <div class="feat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
         <div class="feat-title" data-key="feat5Title">Dentist Dashboard</div>
         <div class="feat-text" data-key="feat5Text">A private panel to manage appointments, block unavailable dates, control services offered, and review all conversations.</div>
       </div>
       <div class="feat-card fade-up">
-        <div class="feat-icon">📱</div>
+        <div class="feat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="2.5"/></svg></div>
         <div class="feat-title" data-key="feat6Title">Web &amp; WhatsApp Ready</div>
         <div class="feat-text" data-key="feat6Text">Embed on your website or connect to WhatsApp Business. Meet your patients where they already are.</div>
       </div>
