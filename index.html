@@ -110,15 +110,16 @@ section{padding:100px 24px}
 .feat-text{font-size:.82rem;color:var(--muted);line-height:1.7;font-weight:300}
 
 /* ── Demo ── */
-#demo .section-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
-#demo .section-inner.full-demo{grid-template-columns:1fr;max-width:900px;margin:0 auto}
-@media(max-width:900px){#demo .section-inner{grid-template-columns:1fr}}
-.demo-tabs{display:flex;gap:8px;margin-bottom:20px}
+#demo .section-inner{display:block;max-width:980px;margin:0 auto;text-align:center}
+#demo .demo-tabs{justify-content:center}
+#demo .demo-header{margin-bottom:40px}
+.demo-tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
 .demo-tab{padding:8px 18px;border:1px solid var(--border);border-radius:24px;font-size:13px;font-weight:500;font-family:'Source Sans 3',sans-serif;color:var(--muted);background:transparent;cursor:pointer;transition:all .2s;letter-spacing:.02em}
 .demo-tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
 .demo-tab:hover:not(.active){border-color:var(--gold);color:var(--navy)}
-.demo-panel{display:none}.demo-panel.active{display:block}
-.demo-dash-frame{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 8px 40px rgba(13,43,82,0.12);height:600px;background:#09090f}
+.demo-panel{display:none;text-align:left}.demo-panel.active{display:block}
+#panel-chat .demo-frame{max-width:520px;margin:0 auto}
+.demo-dash-frame{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 8px 40px rgba(13,43,82,0.12);height:680px;background:#09090f}
 .demo-dash-frame iframe{width:100%;height:100%;border:none;display:block}
 .demo-frame{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 8px 40px rgba(13,43,82,0.1);position:relative;background:#fff}
 .demo-chat{display:flex;flex-direction:column;height:560px;background:#fff}
@@ -330,13 +331,13 @@ footer{padding:48px 24px;background:var(--bg2);border-top:1px solid var(--border
 <!-- Demo -->
 <section id="demo">
   <div class="section-inner">
-    <div class="fade-up">
+    <div class="fade-up demo-header">
       <span class="section-tag" data-key="demoTag">Live Example</span>
       <h2 class="section-title" data-key="demoTitle">Watch Sofia book a real appointment.</h2>
-      <div class="section-divider"></div>
-      <p class="section-sub" data-key="demoSub">This is a real conversation flow we deployed for a veterinary clinic. Sofia understands context, confirms details, and handles booking end-to-end — no human needed.</p>
+      <div class="section-divider" style="margin-left:auto;margin-right:auto"></div>
+      <p class="section-sub" data-key="demoSub" style="max-width:640px;margin-left:auto;margin-right:auto">This is a real conversation flow we deployed for a veterinary clinic. Sofia understands context, confirms details, and handles booking end-to-end — no human needed.</p>
     </div>
-    <div class="fade-up" style="margin-top:48px">
+    <div class="fade-up">
       <div class="demo-tabs">
         <button class="demo-tab active" id="tab-chat" onclick="switchDemoTab('chat')" data-key="tabChat">💬 AI Chat</button>
         <button class="demo-tab" id="tab-dash" onclick="switchDemoTab('dash')" data-key="tabDash">📊 Clinic Dashboard</button>

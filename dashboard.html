@@ -4,9 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Clínica Sorriso</title>
+<script>if(location.search.indexOf('demo=true')!==-1){document.documentElement.classList.add('is-demo');document.title='Clínica Demo — Nével';}</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,300&family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap');
+html.is-demo #page-receptionist,html.is-demo #page-login{display:none!important}
+html.is-demo #page-dashboard{display:flex;flex-direction:column}
+html.is-demo .logout-btn{display:none}
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --mint:#3db388;--mint2:#c2e8d8;--mint4:#1a7a57;
@@ -2251,7 +2255,11 @@ function stopMic() {
   if (micBtn) micBtn.classList.remove("listening");
   if (rRecognition) { try { rRecognition.stop(); } catch(e) {} rRecognition = null; }
 }
-if (DEMO_MODE) { var b=document.getElementById('demo-banner'); if(b) b.style.display='flex'; }
+if (DEMO_MODE) {
+  var b=document.getElementById('demo-banner'); if(b) b.style.display='flex';
+  document.querySelectorAll('.dname,.clinic-name,.login-sub').forEach(function(el){ el.textContent='Clínica Demo'; });
+  var ds=document.querySelector('.dsub'); if(ds) ds.textContent='Demonstração Nével';
+}
 initReceptionist();
 </script>
 <div id="cancel-overlay">
