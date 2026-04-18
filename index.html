@@ -110,8 +110,16 @@ section{padding:100px 24px}
 .feat-text{font-size:.82rem;color:var(--muted);line-height:1.7;font-weight:300}
 
 /* ── Demo ── */
-#demo .section-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+#demo .section-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+#demo .section-inner.full-demo{grid-template-columns:1fr;max-width:900px;margin:0 auto}
 @media(max-width:900px){#demo .section-inner{grid-template-columns:1fr}}
+.demo-tabs{display:flex;gap:8px;margin-bottom:20px}
+.demo-tab{padding:8px 18px;border:1px solid var(--border);border-radius:24px;font-size:13px;font-weight:500;font-family:'Source Sans 3',sans-serif;color:var(--muted);background:transparent;cursor:pointer;transition:all .2s;letter-spacing:.02em}
+.demo-tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.demo-tab:hover:not(.active){border-color:var(--gold);color:var(--navy)}
+.demo-panel{display:none}.demo-panel.active{display:block}
+.demo-dash-frame{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 8px 40px rgba(13,43,82,0.12);height:600px;background:#09090f}
+.demo-dash-frame iframe{width:100%;height:100%;border:none;display:block}
 .demo-frame{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 8px 40px rgba(13,43,82,0.1);position:relative;background:#fff}
 .demo-chat{display:flex;flex-direction:column;height:560px;background:#fff}
 .demo-chat-header{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;background:var(--bg2);flex-shrink:0}
@@ -328,20 +336,34 @@ footer{padding:48px 24px;background:var(--bg2);border-top:1px solid var(--border
       <div class="section-divider"></div>
       <p class="section-sub" data-key="demoSub">This is a real conversation flow we deployed for a veterinary clinic. Sofia understands context, confirms details, and handles booking end-to-end — no human needed.</p>
     </div>
-    <div class="demo-frame fade-up" style="margin-top:48px">
-      <div class="demo-chat">
-        <div class="demo-chat-header">
-          <div class="demo-avatar">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M6.5 14c-1.5 1-2.5 2.5-2.5 4s1 2 2 2 2-1 2-2"/><path d="M17.5 14c1.5 1 2.5 2.5 2.5 4s-1 2-2 2-2-1-2-2"/><path d="M9 6c0-1.5-.5-3-1.5-3S6 4.5 6 6"/><path d="M15 6c0-1.5.5-3 1.5-3s1.5 1.5 1.5 3"/></svg>
-          </div>
-          <div>
-            <div class="demo-clinic-name" data-key="demoClinicName">St. Francis Veterinary Clinic</div>
-            <div class="demo-clinic-sub"><span class="demo-live-dot"></span><span data-key="demoClinicSub">Sofia · AI Receptionist</span></div>
-          </div>
-        </div>
-        <div class="demo-chat-body" id="demo-chat-body"></div>
+    <div class="fade-up" style="margin-top:48px">
+      <div class="demo-tabs">
+        <button class="demo-tab active" id="tab-chat" onclick="switchDemoTab('chat')" data-key="tabChat">💬 AI Chat</button>
+        <button class="demo-tab" id="tab-dash" onclick="switchDemoTab('dash')" data-key="tabDash">📊 Clinic Dashboard</button>
       </div>
-      <button class="demo-restart" id="demo-restart" data-key="demoRestart">↻ Replay</button>
+      <div class="demo-panel active" id="panel-chat">
+        <div class="demo-frame">
+          <div class="demo-chat">
+            <div class="demo-chat-header">
+              <div class="demo-avatar">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M6.5 14c-1.5 1-2.5 2.5-2.5 4s1 2 2 2 2-1 2-2"/><path d="M17.5 14c1.5 1 2.5 2.5 2.5 4s-1 2-2 2-2-1-2-2"/><path d="M9 6c0-1.5-.5-3-1.5-3S6 4.5 6 6"/><path d="M15 6c0-1.5.5-3 1.5-3s1.5 1.5 1.5 3"/></svg>
+              </div>
+              <div>
+                <div class="demo-clinic-name" data-key="demoClinicName">St. Francis Veterinary Clinic</div>
+                <div class="demo-clinic-sub"><span class="demo-live-dot"></span><span data-key="demoClinicSub">Sofia · AI Receptionist</span></div>
+              </div>
+            </div>
+            <div class="demo-chat-body" id="demo-chat-body"></div>
+          </div>
+          <button class="demo-restart" id="demo-restart" data-key="demoRestart">↻ Replay</button>
+        </div>
+      </div>
+      <div class="demo-panel" id="panel-dash">
+        <div class="demo-dash-frame">
+          <iframe id="dash-iframe" src="" title="Clinic Dashboard Demo" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin-top:10px;text-align:center" data-key="dashNote">Live demo dashboard — all data is fictional.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -452,6 +474,9 @@ const COPY = {
     demoClinicName:'St. Francis Veterinary Clinic',
     demoClinicSub:'Sofia · AI Receptionist',
     demoRestart:'↻ Replay',
+    tabChat:'💬 AI Chat',
+    tabDash:'📊 Clinic Dashboard',
+    dashNote:'Live demo dashboard — all data is fictional.',
     demoMessages:[
       {type:'bot',text:'Hello! 🐾 Welcome to St. Francis Veterinary Clinic. How can I help you today?',delay:600,typing:1000},
       {type:'user',text:'Hi, I\'d like to book an appointment for Thor',delay:1400},
@@ -530,6 +555,9 @@ const COPY = {
     demoClinicName:'Clínica Veterinária São Francisco',
     demoClinicSub:'Sofia · Recepcionista IA',
     demoRestart:'↻ Replay',
+    tabChat:'💬 Chat IA',
+    tabDash:'📊 Painel da Clínica',
+    dashNote:'Painel de demonstração ao vivo — todos os dados são fictícios.',
     demoMessages:[
       {type:'bot',text:'Olá! 🐾 Bem-vindo à Clínica Veterinária São Francisco. Como posso ajudar hoje?',delay:600,typing:1000},
       {type:'user',text:'Oi, quero marcar consulta para o Thor',delay:1400},
@@ -598,6 +626,17 @@ function setLang(lang) {
 window.addEventListener('scroll', function() {
   document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
 });
+
+// ── Demo tab switcher ──────────────────────────────────────────────────────────
+var dashLoaded = false;
+function switchDemoTab(tab) {
+  document.querySelectorAll('.demo-tab').forEach(function(b) { b.classList.toggle('active', b.id === 'tab-' + tab); });
+  document.querySelectorAll('.demo-panel').forEach(function(p) { p.classList.toggle('active', p.id === 'panel-' + tab); });
+  if (tab === 'dash' && !dashLoaded) {
+    dashLoaded = true;
+    document.getElementById('dash-iframe').src = '/dashboard?demo=true';
+  }
+}
 
 // ── Fade-up on scroll ────────────────────────────────────────────────────────
 var observer = new IntersectionObserver(function(entries) {
