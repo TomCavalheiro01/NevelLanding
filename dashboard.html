@@ -143,8 +143,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);
 .tog-track:after{content:'';position:absolute;width:14px;height:14px;left:2px;top:2px;background:#fff;border-radius:50%;transition:transform .2s}
 .tog input:checked~.tog-track:after{transform:translateX(16px)}
 .tl-bar{height:44px;background:var(--bg3);border-radius:6px;margin-bottom:4px;position:relative;overflow:hidden;user-select:none;-webkit-user-select:none;cursor:default}
-.tl-appt{position:absolute;top:0;height:100%;background:rgba(255,255,255,.18);border-left:2px solid rgba(255,255,255,.55);border-radius:0 3px 3px 0;z-index:5;pointer-events:auto;cursor:default;box-sizing:border-box;transition:background .12s}
-.tl-appt:hover{background:rgba(255,255,255,.32)}
+.tl-appt{position:absolute;top:0;height:100%;background:rgba(255,255,255,.18);border-left:2px solid rgba(255,255,255,.55);border-radius:0 3px 3px 0;z-index:1;pointer-events:none;box-sizing:border-box}
 #cancel-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:1000;align-items:center;justify-content:center;padding:20px}
 #cancel-overlay.open{display:flex}
 #cancel-modal{background:var(--bg2);border:1px solid var(--bg3);border-radius:16px;padding:28px;width:100%;max-width:380px;display:flex;flex-direction:column;gap:14px;box-shadow:0 20px 60px rgba(0,0,0,.7)}
@@ -1457,6 +1456,37 @@ function tBuildCard(d) {
   var tl = document.createElement('div');
   tl.className = 'tl-bar'; tl.id = 'tl-' + d.key;
   tRenderTl(tl, ds, d.key);
+  // Appointment tooltip via bar-level mousemove (appt elements are pointer-events:none)
+  (function(barEl, dKey) {
+    barEl.addEventListener('mousemove', function(ev) {
+      if (dragState) return;
+      var rect = barEl.getBoundingClientRect();
+      var xRatio = (ev.clientX - rect.left) / rect.width;
+      var mouseMin = TL_START + xRatio * TL_SPAN;
+      var appts = tAppts[dKey] || [];
+      var hit = null;
+      for (var ai = 0; ai < appts.length; ai++) {
+        var m = tMins(appts[ai].horario || '');
+        if (mouseMin >= m && mouseMin <= m + 30) { hit = appts[ai]; break; }
+      }
+      var tip = document.getElementById('tl-tooltip');
+      if (hit) {
+        tip.innerHTML =
+          '<strong style="font-size:12px">' + escapeHtml(hit.nome || 'Paciente') + '</strong>' +
+          (hit.servico  ? '<br>' + escapeHtml(hit.servico)  : '') +
+          (hit.telefone ? '<br>' + escapeHtml(hit.telefone) : '') +
+          '<br><span style="color:var(--t3);font-size:10px">' + escapeHtml(hit.horario || '') +
+          (hit.data ? ' · ' + escapeHtml(hit.data) : '') + '</span>';
+        tip.classList.add('vis');
+        tTipPos(tip, ev);
+      } else {
+        tip.classList.remove('vis');
+      }
+    });
+    barEl.addEventListener('mouseleave', function() {
+      document.getElementById('tl-tooltip').classList.remove('vis');
+    });
+  })(tl, d.key);
   card.appendChild(tl);
 
   // Legend
@@ -1633,20 +1663,6 @@ function tRenderTl(el, ds, dayKey) {
     blk.className = 'tl-appt';
     blk.style.left  = ((m - TL_START) / TL_SPAN * 100) + '%';
     blk.style.width = APPT_W + '%';
-    (function(appt) {
-      blk.addEventListener('mouseenter', function(ev) {
-        var tip = document.getElementById('tl-tooltip');
-        tip.innerHTML =
-          '<strong style="font-size:12px">' + escapeHtml(appt.nome || 'Paciente') + '</strong>' +
-          (appt.servico  ? '<br>' + escapeHtml(appt.servico) : '') +
-          (appt.telefone ? '<br>' + escapeHtml(appt.telefone) : '') +
-          '<br><span style="color:var(--t3);font-size:10px">' + escapeHtml(appt.horario || '') + (appt.data ? ' · ' + escapeHtml(appt.data) : '') + '</span>';
-        tip.classList.add('vis');
-        tTipPos(tip, ev);
-      });
-      blk.addEventListener('mousemove', function(ev) { tTipPos(document.getElementById('tl-tooltip'), ev); });
-      blk.addEventListener('mouseleave', function() { document.getElementById('tl-tooltip').classList.remove('vis'); });
-    })(a);
     el.appendChild(blk);
   });
 }
@@ -1667,13 +1683,17 @@ function tStartDrag(ev, type, dayKey, shiftIdx, pauseIdx) {
   var bar = document.getElementById('tl-' + dayKey);
   var rect = bar.getBoundingClientRect();
   var ds = tState.dias[dayKey];
-  var obj = type[0]==='p' ? ds.pauses[pauseIdx] : ds.turnos[shiftIdx];
+  var isP = type[0] === 'p';
+  var obj = isP ? ds.pauses[pauseIdx] : ds.turnos[shiftIdx];
+  var blkEls = bar.querySelectorAll(isP ? '.tl-pause' : '.tl-shift');
+  var blkEl = blkEls[isP ? pauseIdx : shiftIdx] || null;
   dragState = {
     type: type, dayKey: dayKey,
     shiftIdx: shiftIdx, pauseIdx: pauseIdx,
     barLeft: rect.left, barW: rect.width,
     startX: tGetClientX(ev),
-    origS: tMins(obj.inicio), origE: tMins(obj.fim)
+    origS: tMins(obj.inicio), origE: tMins(obj.fim),
+    blkEl: blkEl
   };
 }
 
@@ -1719,21 +1739,32 @@ function tOnMove(ev) {
     if (fi2) fi2.value = obj.fim;
   }
 
-  var tlEl = document.getElementById('tl-' + dragState.dayKey);
-  if (tlEl) tRenderTl(tlEl, ds, dragState.dayKey);
+  // Update only the dragged block directly — no full re-render during drag
+  if (dragState.blkEl) {
+    var s = tMins(obj.inicio), e = tMins(obj.fim);
+    dragState.blkEl.style.left  = ((s - TL_START) / TL_SPAN * 100) + '%';
+    dragState.blkEl.style.width = ((e - s)         / TL_SPAN * 100) + '%';
+    var lbl = dragState.blkEl.querySelector('.tl-shift-label, .tl-pause-label');
+    if (lbl) lbl.textContent = isP ? ('⏸ ' + obj.inicio + '–' + obj.fim) : (obj.inicio + '–' + obj.fim);
+  }
 }
 
 function tEndDrag() {
   if (!dragState) return;
-  tPersist();
-  tScheduleSync(dragState.dayKey);
+  var dayKey = dragState.dayKey;
   dragState = null;
+  tPersist();
+  tScheduleSync(dayKey);
+  var tlEl = document.getElementById('tl-' + dayKey);
+  var ds = tState.dias[dayKey];
+  if (tlEl && ds) tRenderTl(tlEl, ds, dayKey);
 }
 
-document.addEventListener('mousemove', tOnMove);
-document.addEventListener('mouseup',   tEndDrag);
-document.addEventListener('touchmove', function(ev){ tOnMove(ev); }, {passive:false});
-document.addEventListener('touchend',  tEndDrag);
+document.addEventListener('mousemove',   tOnMove);
+document.addEventListener('mouseup',    tEndDrag);
+document.addEventListener('touchmove',  function(ev){ tOnMove(ev); }, {passive:false});
+document.addEventListener('touchend',   tEndDrag);
+document.addEventListener('touchcancel',tEndDrag);
 
 // ── Pause CRUD ────────────────────────────────────────────────────────────────
 function tAddPause(dayKey) {
