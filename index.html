@@ -111,43 +111,9 @@ section{padding:100px 24px}
 
 /* ── Demo ── */
 #demo .section-inner{display:block;max-width:980px;margin:0 auto;text-align:center}
-#demo .demo-tabs{justify-content:center}
 #demo .demo-header{margin-bottom:40px}
-.demo-tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
-.demo-tab{padding:8px 18px;border:1px solid var(--border);border-radius:24px;font-size:13px;font-weight:500;font-family:'Source Sans 3',sans-serif;color:var(--muted);background:transparent;cursor:pointer;transition:all .2s;letter-spacing:.02em}
-.demo-tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
-.demo-tab:hover:not(.active){border-color:var(--gold);color:var(--navy)}
-.demo-panel{display:none;text-align:left}.demo-panel.active{display:block}
-#panel-chat .demo-frame{max-width:520px;margin:0 auto}
 .demo-dash-frame{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 8px 40px rgba(13,43,82,0.12);height:680px;background:#09090f}
 .demo-dash-frame iframe{width:100%;height:100%;border:none;display:block}
-.demo-frame{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 8px 40px rgba(13,43,82,0.1);position:relative;background:#fff}
-.demo-chat{display:flex;flex-direction:column;height:560px;background:#fff}
-.demo-chat-header{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;background:var(--bg2);flex-shrink:0}
-.demo-avatar{width:38px;height:38px;border-radius:10px;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.demo-avatar svg{width:20px;height:20px;stroke:var(--gold-light);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-.demo-clinic-name{font-family:'Libre Baskerville',serif;font-size:15px;color:var(--navy);font-weight:700;line-height:1.2}
-.demo-clinic-sub{font-size:11px;color:var(--muted);margin-top:3px;display:flex;align-items:center;gap:5px}
-.demo-live-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:demoPulse 2s infinite}
-@keyframes demoPulse{0%,100%{opacity:1}50%{opacity:.4}}
-.demo-chat-body{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth}
-.demo-chat-body::-webkit-scrollbar{width:4px}
-.demo-chat-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
-.demo-bubble{max-width:82%;padding:9px 13px;font-size:13px;line-height:1.55;border-radius:14px;animation:bubbleIn .25s ease;white-space:pre-line;font-weight:400}
-@keyframes bubbleIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-.demo-bubble.user{background:var(--navy);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
-.demo-bubble.bot{background:var(--bg2);color:var(--text);align-self:flex-start;border-bottom-left-radius:4px;border:1px solid var(--border)}
-.demo-typing{align-self:flex-start;background:var(--bg2);border:1px solid var(--border);border-radius:14px;border-bottom-left-radius:4px;padding:11px 14px;display:flex;gap:4px;animation:bubbleIn .2s ease}
-.demo-typing span{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:typing 1.2s infinite}
-.demo-typing span:nth-child(2){animation-delay:.15s}
-.demo-typing span:nth-child(3){animation-delay:.3s}
-@keyframes typing{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
-.demo-slots{display:flex;flex-direction:column;gap:6px;align-self:flex-start;max-width:82%;margin-top:2px;animation:bubbleIn .25s ease}
-.demo-slot{background:#fff;border:1px solid var(--gold);color:var(--navy);padding:9px 14px;border-radius:10px;font-size:12.5px;font-family:'Source Sans 3',sans-serif;font-weight:500;text-align:left;transition:all .3s}
-.demo-slot.selected{background:var(--gold);color:#fff;border-color:var(--gold);box-shadow:0 2px 10px var(--gold-glow)}
-.demo-restart{position:absolute;bottom:12px;right:12px;font-size:.65rem;font-weight:500;letter-spacing:.08em;color:var(--muted);background:#fff;border:1px solid var(--border);padding:5px 11px;border-radius:20px;z-index:2;cursor:pointer;text-transform:uppercase;font-family:'Source Sans 3',sans-serif;transition:all .2s;opacity:0}
-.demo-restart.visible{opacity:1}
-.demo-restart:hover{color:var(--navy);border-color:var(--navy)}
 
 /* ── Request Form ── */
 #request{background:var(--navy);color:#fff}
@@ -333,38 +299,15 @@ footer{padding:48px 24px;background:var(--bg2);border-top:1px solid var(--border
   <div class="section-inner">
     <div class="fade-up demo-header">
       <span class="section-tag" data-key="demoTag">Live Example</span>
-      <h2 class="section-title" data-key="demoTitle">Watch Sofia book a real appointment.</h2>
+      <h2 class="section-title" data-key="demoTitle">Your office, fully managed.</h2>
       <div class="section-divider" style="margin-left:auto;margin-right:auto"></div>
-      <p class="section-sub" data-key="demoSub" style="max-width:640px;margin-left:auto;margin-right:auto">This is a real conversation flow we deployed for a veterinary clinic. Sofia understands context, confirms details, and handles booking end-to-end — no human needed.</p>
+      <p class="section-sub" data-key="demoSub" style="max-width:640px;margin-left:auto;margin-right:auto">This is the dashboard your clinic gets — manage appointments, configure availability, and track everything in one place.</p>
     </div>
     <div class="fade-up">
-      <div class="demo-tabs">
-        <button class="demo-tab active" id="tab-chat" onclick="switchDemoTab('chat')" data-key="tabChat">💬 AI Chat</button>
-        <button class="demo-tab" id="tab-dash" onclick="switchDemoTab('dash')" data-key="tabDash">📊 Clinic Dashboard</button>
+      <div class="demo-dash-frame">
+        <iframe id="dash-iframe" src="/dashboard?demo=true" title="Clinic Dashboard Demo" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
       </div>
-      <div class="demo-panel active" id="panel-chat">
-        <div class="demo-frame">
-          <div class="demo-chat">
-            <div class="demo-chat-header">
-              <div class="demo-avatar">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M6.5 14c-1.5 1-2.5 2.5-2.5 4s1 2 2 2 2-1 2-2"/><path d="M17.5 14c1.5 1 2.5 2.5 2.5 4s-1 2-2 2-2-1-2-2"/><path d="M9 6c0-1.5-.5-3-1.5-3S6 4.5 6 6"/><path d="M15 6c0-1.5.5-3 1.5-3s1.5 1.5 1.5 3"/></svg>
-              </div>
-              <div>
-                <div class="demo-clinic-name" data-key="demoClinicName">St. Francis Veterinary Clinic</div>
-                <div class="demo-clinic-sub"><span class="demo-live-dot"></span><span data-key="demoClinicSub">Sofia · AI Receptionist</span></div>
-              </div>
-            </div>
-            <div class="demo-chat-body" id="demo-chat-body"></div>
-          </div>
-          <button class="demo-restart" id="demo-restart" data-key="demoRestart">↻ Replay</button>
-        </div>
-      </div>
-      <div class="demo-panel" id="panel-dash">
-        <div class="demo-dash-frame">
-          <iframe id="dash-iframe" src="" title="Clinic Dashboard Demo" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
-        </div>
-        <p style="font-size:12px;color:var(--muted);margin-top:10px;text-align:center" data-key="dashNote">Live demo dashboard — all data is fictional.</p>
-      </div>
+      <p style="font-size:12px;color:var(--muted);margin-top:10px;text-align:center" data-key="dashNote">Live demo dashboard — all data is fictional.</p>
     </div>
   </div>
 </section>
@@ -470,24 +413,9 @@ const COPY = {
     feat6Title:'Web & WhatsApp Ready',
     feat6Text:'Embed on your website or connect to WhatsApp Business. Meet your clients where they already are.',
     demoTag:'Live Example',
-    demoTitle:'Watch Sofia book a real appointment.',
-    demoSub:'This is a real conversation flow we deployed for a veterinary clinic. Sofia understands context, confirms details, and handles booking end-to-end — no human needed.',
-    demoClinicName:'St. Francis Veterinary Clinic',
-    demoClinicSub:'Sofia · AI Receptionist',
-    demoRestart:'↻ Replay',
-    tabChat:'💬 AI Chat',
-    tabDash:'📊 Clinic Dashboard',
+    demoTitle:'Your office, fully managed.',
+    demoSub:'This is the dashboard your clinic gets — manage appointments, configure availability, and track everything in one place.',
     dashNote:'Live demo dashboard — all data is fictional.',
-    demoMessages:[
-      {type:'bot',text:'Hello! 🐾 Welcome to St. Francis Veterinary Clinic. How can I help you today?',delay:600,typing:1000},
-      {type:'user',text:'Hi, I\'d like to book an appointment for Thor',delay:1400},
-      {type:'bot',text:'Of course! What does Thor need — a routine checkup, vaccines, or any specific symptom?',delay:900,typing:1100},
-      {type:'user',text:'Annual booster shots',delay:1300},
-      {type:'bot',text:'Perfect. Here are the available slots this week:',delay:900,typing:900},
-      {type:'slots',slots:['Tuesday, Apr 22 — 9:00 AM','Thursday, Apr 24 — 3:30 PM','Saturday, Apr 26 — 10:30 AM'],selectIndex:2,delay:700},
-      {type:'user',text:'Saturday 10:30 works',delay:1800},
-      {type:'bot',text:'Confirmed ✓\n\n*Thor — Annual Booster*\nSaturday, Apr 26 at 10:30 AM\nDr. Carlos\n\nWe\'ll send a WhatsApp reminder 24h before. See you then! 💚',delay:900,typing:1400}
-    ],
     formTag:'Get Started',
     formTitle:'Request your AI receptionist.',
     formSub:'Tell us about your office and we\'ll be in touch within 24 hours to discuss your custom solution.',
@@ -551,24 +479,9 @@ const COPY = {
     feat6Title:'Web e WhatsApp',
     feat6Text:'Incorpore no seu site ou conecte ao WhatsApp Business. Encontre seus clientes onde eles já estão.',
     demoTag:'Exemplo Real',
-    demoTitle:'Veja a Sofia marcar um atendimento de verdade.',
-    demoSub:'Este é um fluxo real que implementamos para uma clínica veterinária. A Sofia entende o contexto, confirma os detalhes e conduz o agendamento do início ao fim — sem intervenção humana.',
-    demoClinicName:'Clínica Veterinária São Francisco',
-    demoClinicSub:'Sofia · Recepcionista IA',
-    demoRestart:'↻ Replay',
-    tabChat:'💬 Chat IA',
-    tabDash:'📊 Painel da Clínica',
+    demoTitle:'Seu consultório, totalmente gerenciado.',
+    demoSub:'Este é o painel que sua clínica recebe — gerencie agendamentos, configure disponibilidade e acompanhe tudo em um só lugar.',
     dashNote:'Painel de demonstração ao vivo — todos os dados são fictícios.',
-    demoMessages:[
-      {type:'bot',text:'Olá! 🐾 Bem-vindo à Clínica Veterinária São Francisco. Como posso ajudar hoje?',delay:600,typing:1000},
-      {type:'user',text:'Oi, quero marcar consulta para o Thor',delay:1400},
-      {type:'bot',text:'Claro! O Thor precisa de consulta de rotina, vacinação, ou algum sintoma específico?',delay:900,typing:1100},
-      {type:'user',text:'Reforço anual da vacina',delay:1300},
-      {type:'bot',text:'Perfeito. Aqui estão os horários disponíveis nesta semana:',delay:900,typing:900},
-      {type:'slots',slots:['Terça, 22/04 — 09:00','Quinta, 24/04 — 15:30','Sábado, 26/04 — 10:30'],selectIndex:2,delay:700},
-      {type:'user',text:'Sábado 10:30',delay:1800},
-      {type:'bot',text:'Confirmado ✓\n\n*Thor — Reforço Anual*\nSábado, 26/04 às 10:30\nDr. Carlos\n\nEnviaremos um lembrete pelo WhatsApp 24h antes. Até lá! 💚',delay:900,typing:1400}
-    ],
     formTag:'Comece Agora',
     formTitle:'Solicite sua recepcionista IA.',
     formSub:'Conte-nos sobre seu consultório e entraremos em contato em até 24 horas para discutir sua solução personalizada.',
@@ -619,25 +532,12 @@ function setLang(lang) {
     var key = el.getAttribute('data-key');
     if (copy[key] !== undefined) el.textContent = copy[key];
   });
-  // Restart demo chat in new language if already played
-  if (demoState.played) { stopDemo(); setTimeout(playDemo, 150); }
 }
 
 // ── Nav scroll effect ────────────────────────────────────────────────────────
 window.addEventListener('scroll', function() {
   document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
 });
-
-// ── Demo tab switcher ──────────────────────────────────────────────────────────
-var dashLoaded = false;
-function switchDemoTab(tab) {
-  document.querySelectorAll('.demo-tab').forEach(function(b) { b.classList.toggle('active', b.id === 'tab-' + tab); });
-  document.querySelectorAll('.demo-panel').forEach(function(p) { p.classList.toggle('active', p.id === 'panel-' + tab); });
-  if (tab === 'dash' && !dashLoaded) {
-    dashLoaded = true;
-    document.getElementById('dash-iframe').src = '/dashboard?demo=true';
-  }
-}
 
 // ── Fade-up on scroll ────────────────────────────────────────────────────────
 var observer = new IntersectionObserver(function(entries) {
@@ -646,102 +546,6 @@ var observer = new IntersectionObserver(function(entries) {
   });
 }, { threshold: 0.12 });
 document.querySelectorAll('.fade-up').forEach(function(el) { observer.observe(el); });
-
-// ── Demo chat auto-play ──────────────────────────────────────────────────────
-var demoState = { playing: false, played: false, timeouts: [] };
-
-function demoSleep(ms) {
-  return new Promise(function(r) { demoState.timeouts.push(setTimeout(r, ms)); });
-}
-
-function stopDemo() {
-  demoState.timeouts.forEach(clearTimeout);
-  demoState.timeouts = [];
-  demoState.playing = false;
-}
-
-function renderDemoBubble(type, text) {
-  var b = document.createElement('div');
-  b.className = 'demo-bubble ' + type;
-  var formatted = text.split(/(\*[^*]+\*)/).map(function(p) {
-    return (p.startsWith('*') && p.endsWith('*') && p.length > 2)
-      ? '<strong>' + p.slice(1, -1) + '</strong>'
-      : p.replace(/</g, '&lt;');
-  }).join('').replace(/\n/g, '<br>');
-  b.innerHTML = formatted;
-  return b;
-}
-
-function renderTyping() {
-  var t = document.createElement('div');
-  t.className = 'demo-typing';
-  t.innerHTML = '<span></span><span></span><span></span>';
-  return t;
-}
-
-function renderSlots(slots) {
-  var wrap = document.createElement('div');
-  wrap.className = 'demo-slots';
-  slots.forEach(function(s) {
-    var el = document.createElement('div');
-    el.className = 'demo-slot';
-    el.textContent = s;
-    wrap.appendChild(el);
-  });
-  return wrap;
-}
-
-async function playDemo() {
-  if (demoState.playing) return;
-  stopDemo();
-  demoState.playing = true;
-  demoState.played = true;
-  var body = document.getElementById('demo-chat-body');
-  var restart = document.getElementById('demo-restart');
-  restart.classList.remove('visible');
-  body.innerHTML = '';
-  var messages = COPY[currentLang].demoMessages;
-  for (var i = 0; i < messages.length; i++) {
-    var msg = messages[i];
-    await demoSleep(msg.delay || 600);
-    if (!demoState.playing) return;
-    if (msg.typing) {
-      var tEl = renderTyping();
-      body.appendChild(tEl);
-      body.scrollTop = body.scrollHeight;
-      await demoSleep(msg.typing);
-      if (!demoState.playing) { tEl.remove(); return; }
-      tEl.remove();
-    }
-    if (msg.type === 'slots') {
-      var slotsEl = renderSlots(msg.slots);
-      body.appendChild(slotsEl);
-      body.scrollTop = body.scrollHeight;
-      if (typeof msg.selectIndex === 'number') {
-        await demoSleep(1400);
-        if (!demoState.playing) return;
-        slotsEl.children[msg.selectIndex].classList.add('selected');
-      }
-    } else {
-      body.appendChild(renderDemoBubble(msg.type, msg.text));
-      body.scrollTop = body.scrollHeight;
-    }
-  }
-  demoState.playing = false;
-  restart.classList.add('visible');
-}
-
-var demoObs = new IntersectionObserver(function(entries) {
-  entries.forEach(function(e) {
-    if (e.isIntersecting && !demoState.played) playDemo();
-  });
-}, { threshold: 0.3 });
-demoObs.observe(document.getElementById('demo'));
-
-document.getElementById('demo-restart').addEventListener('click', function() {
-  stopDemo();
-  playDemo();
-});
 
 // ── Phone normalization ───────────────────────────────────────────────────────
 function normalizePhone(raw) {
